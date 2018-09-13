@@ -1,0 +1,11 @@
+User Object:
+	--> username
+	--> password
+	--> other information for user
+
+Place Object:
+
+Photo Object:
+	--> Location
+	--> date
+	--> 
