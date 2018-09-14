@@ -4,11 +4,11 @@ import Note
 
 class Location:
 
-	def __init__( self, name, log, lat, photo_list, note_list ):
+	def __init__( self, name, log, lat ):
 		self.name = name
 		self.log = log
 		self.lat = lat
-		self.photo_list = photo_list
+		
 		self.note_list = note_list
 
 
@@ -41,5 +41,11 @@ class Location:
 
 	def set_note_list( self, nl ):
 		self.note_list = nl
+
+	def set_photo_list( self ):
+		self.photo_list = photo_list
+
+	def set_note_list( self ):
+		self.note_list
 
 	
