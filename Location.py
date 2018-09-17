@@ -4,11 +4,12 @@ import Note
 
 class Location:
 
-	def __init__( self, name, log, lat ):
+	def __init__( self, name, log, lat, photo_list, note_list ):
 		self.name = name
 		self.log = log
 		self.lat = lat
 		
+		self.photo_list = photo_list
 		self.note_list = note_list
 
 

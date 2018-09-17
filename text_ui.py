@@ -108,44 +108,14 @@ def view_locations( client, cur_user ):
 
 
 ##################################################################################
-def display_photo_loc( client, cur_user, cur_photo ):
-	photo_list = client.get_loc_photos( cur_user,  )
-	index = 1
-	for photo in photo_list:
-		print str(index) + "\t\t-->\t\t" + photo.get_filename()
-		index = index + 1
-	raw_input( "ENTER TO RETURN" )
-
-def display_photo_notes( client, cur_user, cur_photo ):
-	note_list = client.get_loc_notes( cur_user, cur_loc )
-	index = 1
-	for note in note_list:
-		print "NOTE 1"
-		print "---------------------"
-		print note.get_text()
-		print " "
-	raw_input( "ENTER TO RETURN" )
-
 def photo( client, cur_user, cur_photo ):
-	close_photo = False
-	while( close_photo == False ):
-		print "---------------------"
-		print cur_photo.get_date()
-		print "---------------------"
-		print cur_photo.get_filename()
-		print "---------------------"
-		print cur_photo.get
-		print "Enter the number for the following options:"
-		print "0\t\t-->\t\tBACK TO LOCATIONS LIST"
-		print "1\t\t-->\t\tView Photos"
-		print "2\t\t-->\t\tView Notes"
-		response = raw_input( "" )
-		if( response == "0" ):
-			close_photo = True
-		elif( response == "1" ):
-			display_location_photos( client, cur_user, cur_loc )
-		elif( response == "2" ):
-			display_location_notes( client, cur_user, cur_loc )
+	print "---------------------"
+	print cur_photo.get_date()
+	print "---------------------"
+	print cur_photo.get_filename()
+	print "---------------------"
+	print cur_photo.get_location()
+	response = raw_input( "" )
 
 def view_photos( client, cur_user ):
 	close_photo_list = False
@@ -155,15 +125,45 @@ def view_photos( client, cur_user ):
 		photo_list = client.get_all_photos( cur_user )
 		index = 1
 		print "0\t\t-->\t\tGO BACK TO MAIN MENU"
-		for photo in photo_list:
-			print str(index) + "\t\t-->\t\t" + photo.get_filename()
+		for pht in photo_list:
+			print str(index) + "\t\t-->\t\t" + pht.get_filename()
 			index = index + 1
 		response = int( raw_input("") )
 		if( response == 0 ):
 			close_photo_list = True
 		else:
 			selected_photo = photo_list[ response-1 ]
-			location( client, cur_user, selected_photo )
+			photo( client, cur_user, selected_photo )
+##################################################################################
+
+
+##################################################################################
+def note( client, cur_user, cur_note ):
+	print "---------------------"
+	print cur_note.get_date()
+	print "---------------------"
+	print cur_note.get_location()
+	print "---------------------"
+	print cur_note.get_text()
+	response = raw_input( "" )
+
+def view_notes( client, cur_user ):
+	close_note_list = False
+	while( close_note_list == False ):
+		print "PICK A NOTE:"
+		print "---------------------"
+		note_list = client.get_all_notes( cur_user )
+		index = 1
+		print "0\t\t-->\t\tGO BACK TO MAIN MENU"
+		for nt in note_list:
+			print str(index) + "\t\t-->\t\t" + nt.get_date() + "\t\t" + nt.get_location()
+			index = index + 1
+		response = int( raw_input("") )
+		if( response == 0 ):
+			close_note_list = True
+		else:
+			selected_note = note_list[ response-1 ]
+			note( client, cur_user, selected_note )
 ##################################################################################
 
 

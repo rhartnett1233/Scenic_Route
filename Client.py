@@ -42,3 +42,20 @@ class Client:
 		loc3 = Location.Location( "Tampa", 100.512069, -3.069369, self.photo_list, self.note_list )
 		loc_list = [ loc1, loc2, loc3 ]
 		return loc_list
+
+	def get_all_photos( self, cur_user ):
+		return self.photo_list
+
+	def get_all_notes( self, cur_user ):
+		return self. note_list
+
+
+
+
+
+
+
+
+
+
+
