@@ -2,13 +2,16 @@ import User
 import Note
 import Photo
 import Location
+import xmlrpclib
 
+SERVER_ADDR = "http://localhost:8000/"
 
 class Client:
 
-
 	def __init__( self ):
-		photo1 = Photo.Photo( "03/11/1996", "Westport", "img1.jpg" )
+		self.server = xmlrpclib.ServerProxy(SERVER_ADDR)
+
+		'''photo1 = Photo.Photo( "03/11/1996", "Westport", "img1.jpg" )
 		photo2 = Photo.Photo( "04/11/1996", "Westport", "img2.jpg" )
 		photo3 = Photo.Photo( "03/19/1996", "Westport", "img3.jpg" )
 		photo4 = Photo.Photo( "06/18/2006", "Westport", "img4.jpg" )
@@ -20,14 +23,20 @@ class Client:
 		self.note_list = [ note1, note2 ]
 		
 		self.cur_loc = Location.Location( "Westport", 41.512069, -71.069369, self.photo_list, self.note_list )
+		'''
 
 
 	def login( self, email, password ):
-		cur_user = User.User( "Hartnett", "Richie", "email", "strider" )
+		response = self.server.login_( email, password )
+		cur_user = User.User( str(response[0]), str(response[1]), str(response[2]), str(response[3]) )
 		return cur_user
 
 	def create_account( self, last_name, first_name, email, password ):
-		cur_user = User.User( last_name, first_name, email, password )
+		response = self.server.create_account( last_name, first_name, email, password )
+		if( int(response) == 1 ):
+			cur_user = User.User( last_name, first_name, email, password )
+		else:
+			cur_user = None
 		return cur_user
 
 	def get_loc_photos( self, cur_user, cur_loc ):
