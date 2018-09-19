@@ -2,6 +2,7 @@ import Client
 import Note
 import Photo
 import Location
+import User
 
 
 

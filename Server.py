@@ -2,44 +2,44 @@ import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 import Photo
 import Note
+import User
 import Location
 import Database
 import Storage
 
-database = Database.Database()
-storage = Storage.Storage()
-
 
 def login_( email, password ):
-	response = database.login( email, password )
-	return response
+	cur_user = database.login( email, password )
+	return cur_user
 
 def create_account( last_name, first_name, email, password ):
-	response = database.create_account( last_name, first_name, email, password )
-	return response
+	cur_user = database.create_account( last_name, first_name, email, password )
+	return cur_user
 
 def get_loc_photos( cur_user, cur_loc):
-	response = database.get_loc_photos( cur_user, cur_loc )
-	return response
+	photo_list = storage.get_loc_photos( cur_user, cur_loc )
+	return photo_list
 
 def get_loc_notes( cur_user, cur_loc ):
-	response = database.get_loc_notes( cur_user, cur_loc )
-	return response
+	note_list = storage.get_loc_notes( cur_user, cur_loc )
+	return note_list
 
 def get_all_locations( cur_user ):
-	response = database.get_all_locations( cur_user )
-	return response
+	loc_list = storage.get_all_locations( cur_user )
+	return loc_list
 
 def get_all_photos( cur_user ):
-	response = database.get_all_photos( cur_user )
-	return response
+	photo_list = storage.get_all_photos( cur_user )
+	return photo_list
 
 def get_all_notes( cur_user ):
-	response = database.get_all_notes( cur_user )
-	return response
+	note_list = storage.get_all_notes( cur_user )
+	return note_list
 
 
 server = SimpleXMLRPCServer(("localhost", 8000))
+database = Database.Database()
+storage = Storage.Storage()
 print "Listening on port 8000..."
 server.register_function(login_, "login_")
 server.register_function(create_account, "create_account")
